@@ -7,6 +7,8 @@
 .video {
 display: flex;
 flex-direction: column;
+text-decoration: none;
+color: white;
 }
 
 .video img {

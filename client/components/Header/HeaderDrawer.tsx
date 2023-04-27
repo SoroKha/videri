@@ -17,12 +17,35 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
+import Modal from '@mui/material/Modal';
+import Fade from '@mui/material/Fade';
+import Backdrop from '@mui/material/Backdrop';
+import Typography from '@mui/material/Typography';
 
 import styles from './Header.module.css'
-import logo from '../../../public/logos/videri_logo.png'
-import profile from '../../../public/profile_images/soroush.png'
+import logo from '/logos/videri_logo.png'
+import { Button } from '@mui/material';
+import SearchIcon from '@mui/icons-material/Search';
+import { Link } from 'react-router-dom';
 
 const drawerWidth = 240;
+
+const modalStyle = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 900,
+    height: 900,
+    bgcolor: '#262626',
+    color: 'white',
+    boxShadow: 24,
+    p: 4,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: '20px'
+  };
 
 const openedMixin = (theme: Theme): CSSObject => ({
   width: drawerWidth,
@@ -105,6 +128,9 @@ interface Props {
 export default function HeaderDrawer({props} : Props) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(true);
+  const [openModal, setOpenModal] = React.useState(false);
+  const handleOpenModal = () => setOpenModal(true);
+  const handleCloseModal = () => setOpenModal(false);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -131,19 +157,26 @@ export default function HeaderDrawer({props} : Props) {
           >
             <MenuIcon />
           </IconButton>
-          <div className={styles.searchWrapper}>
+          <Box className={styles.searchWrapper}>
             <input placeholder='Search' className={styles.searchBar} />
-          </div>
+            <Button sx={{ borderTopRightRadius: '50px', borderBottomRightRadius: '50px', backgroundColor: '#222222', height: '39px' }}>
+                <SearchIcon />
+            </Button>
+          </Box>
+          <Button onClick={handleOpenModal}>
+            Upload a video
+          </Button>
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent" open={open}>
         <DrawerHeader>
+          <Link to='/' style={{position: 'absolute', left: 20}}>
             <img
             src={logo}
-            className={styles.logo}
             width='70px'
-            style={{position: 'absolute', left: 20}}
             />
+          </Link>
+
           <IconButton color='inherit' onClick={handleDrawerClose}>
             {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
           </IconButton>
@@ -205,6 +238,27 @@ export default function HeaderDrawer({props} : Props) {
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
       <DrawerHeader />
         {props}
+        <Modal 
+        open={openModal}
+        onClose={handleCloseModal}
+        closeAfterTransition
+        disableScrollLock={true}
+        slots={{ backdrop: Backdrop }}
+        slotProps={{
+          backdrop: {
+            timeout: 500,
+          },
+        }}
+      >
+        <Fade in={openModal}>
+          <Box sx={modalStyle}>
+            <Button variant="contained" component="label">
+              Select File
+              <input hidden accept="video/*" type="file" />
+            </Button>
+          </Box>
+        </Fade>
+      </Modal>
       </Box>
     </Box>
   );

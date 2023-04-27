@@ -10,7 +10,7 @@
   .profileImage {
     border-radius: 100%;
   }
-  
+ 
   .searchWrapper {
     flex: 1;
     max-width: 520px;
@@ -19,8 +19,7 @@
     color: gray;
     border-width: 1px !important;
     border: solid;
-    border-top-left-radius: 50px;
-    border-bottom-left-radius: 50px;
+    border-radius: 50px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -43,4 +42,7 @@
   .searchBar:focus {
     outline: none;
   }
-  
+
+  .searchBtn {
+    border-top-right-radius: 50px;
+  }

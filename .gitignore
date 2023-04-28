@@ -23,3 +23,4 @@ dist-ssr
 *.sln
 *.sw?
 server/obj/Debug/*
+server/obj/Debug/net7.0/project.razor.json

@@ -1,70 +1,68 @@
 .videoContainer {
-    position: relative;
-    width: 80%;
-    margin: 0 auto;
-  }
+  position: relative;
+  width: 80%;
+  margin: 0 auto;
+}
   
-  .video {
-    width: 100%;
-  }
-  
-  .customControls {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background-color: rgba(0, 0, 0, 0.6);
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-  }
-  
-  .playBtn {
-    background-image: url('play-icon.png');
-    background-size: cover;
-    width: 30px;
-    height: 30px;
-    border: none;
-    outline: none;
-    cursor: pointer;
-  }
-  
-  .playBtn.playing {
-    background-image: url('pause-icon.png');
-  }
-  
-  .progressBarContainer {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    margin-top: 10px;
-  }
-  
-  .progressBar {
-    width: 80%;
-    height: 10px;
-    background-color: #ccc;
-    outline: none;
-    cursor: pointer;
-  }
-  
-  .progressBar::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 10px;
-    height: 10px;
-    background-color: #000;
-    border-radius: 50%;
-  }
-  
-  .timeContainer {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 80%;
-    margin-top: 5px;
-  }
-  
-  .time {
-    color: #fff;
-  }
+.video {
+  width: 100%;
+}
+
+.customControls {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.playBtn {
+  background-size: cover;
+  width: 30px;
+  height: 30px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.playBtn.playing {
+}
+
+.progressBarContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.progressBar {
+  width: 80%;
+  height: 10px;
+  background-color: #ccc;
+  outline: none;
+  cursor: pointer;
+}
+
+.progressBar::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 10px;
+  height: 10px;
+  background-color: #000;
+  border-radius: 50%;
+}
+
+.timeContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 80%;
+  margin-top: 5px;
+}
+
+.time {
+  color: #fff;
+}
   

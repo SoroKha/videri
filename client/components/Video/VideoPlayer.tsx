@@ -3,11 +3,14 @@ import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import PauseIcon from '@mui/icons-material/Pause';
 import ReplayIcon from '@mui/icons-material/Replay';
 import LoopIcon from '@mui/icons-material/Loop';
-import VolumeDownIcon from '@mui/icons-material/VolumeDown';
+import VolumeUpIcon from '@mui/icons-material/VolumeUp';
+import VolumeOffIcon from '@mui/icons-material/VolumeOff';
+import SettingsIcon from '@mui/icons-material/Settings';
 import FullscreenIcon from '@mui/icons-material/Fullscreen';
 import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
 import videoSrc from "/test.mp4";
 import styles from "./Video.module.css";
+import { Button } from "@mui/material";
 
 export default function VideoPlayer() {
   const [video, setVideo] = useState<HTMLVideoElement | null>(null);
@@ -15,16 +18,17 @@ export default function VideoPlayer() {
   const [timeStatus, setTimeStatus] = useState<string>('Paused');
   const [currentTime, setCurrentTime] = useState<number>(0);
   const [duration, setDuration] = useState<number>(0);
-  const [volume, setVolume] = useState<number>(50);
   const [fullscreen, setFullscreen] = useState<boolean>(false);
   const [loop, setLoop] = useState<boolean>(false);
+  const [volume, setVolume] = useState<number>(0);
 
   const videoRef = useRef<HTMLVideoElement>(null);
   const volumeRef = useRef<HTMLInputElement>(null);
   const progressBarRef = useRef<HTMLInputElement>(null);
+  
 
   useEffect(() => {
-    if (videoRef && progressBarRef) {
+    if (videoRef && progressBarRef && volumeRef) {
       setVideo(videoRef.current);
       setProgressBar(progressBarRef.current);
     }
@@ -36,20 +40,18 @@ export default function VideoPlayer() {
         case 'Playing':
           video.pause();
           setTimeStatus('Paused');
-          console.log('Paused');
           break;
         case 'Paused':
           video.play(); 
           setTimeStatus('Playing'); 
-          break
+          break;
         case 'Finished':
           video.currentTime = 0;
           video.play(); 
           setTimeStatus('Playing'); 
-          break
+          break;
       }
     }
-
   }
 
   function handleTimeUpdate() {
@@ -57,7 +59,7 @@ export default function VideoPlayer() {
       const currentTime = video?.currentTime;
       setCurrentTime(currentTime);
       progressBar.setAttribute("value", `${(currentTime / duration) * 100}`);
-      if (video.ended) setTimeStatus('Finished');
+      if (currentTime >= duration) setTimeStatus('Finished');
     }
   }
 
@@ -66,17 +68,27 @@ export default function VideoPlayer() {
       const currentTime = (progressBar.valueAsNumber / 100) * duration;
       setCurrentTime(currentTime);
       video.currentTime = currentTime;
-      if (video.seeking && timeStatus === 'Finished' && currentTime < duration) setTimeStatus('Paused');
-      else if (video.ended) setTimeStatus('Finished');
+      if (video.seeking
+        && timeStatus === 'Finished'
+        && currentTime < duration)
+        setTimeStatus('Paused');
     }
   }
 
   function handleVolumeChange() {
     const volume = volumeRef.current;
+    
     if (video && volume) {
       const currentVolume = (volume.valueAsNumber / 100);
-      setVolume(currentVolume);
       video.volume = currentVolume;
+    }
+  }
+
+  function muteVolume() {
+    const volume = volumeRef.current;
+    
+    if (video && volume) {
+      video.volume = 0;
     }
   }
 
@@ -95,6 +107,7 @@ export default function VideoPlayer() {
     if (video) {
       const duration = video.duration;
       setDuration(duration);
+      video.volume = 0;
     }
   }
 
@@ -119,30 +132,33 @@ export default function VideoPlayer() {
         controls={false}
         />
         <div className={styles.customControls}>
-            <button className={styles.playBtn} onClick={() => setLoop(loop => !loop)}>
-              <LoopIcon sx={{color: loop ? 'red' : null}} />
-            </button>
-            <button className={styles.playBtn} onClick={handlePlayPause}>
+            <Button className={styles.loopBtn} onClick={() => setLoop(loop => !loop)}>
+              <LoopIcon sx={{color: loop ? 'green' : null}} />
+            </Button>
+            <Button className={styles.playBtn} onClick={handlePlayPause}>
               {timeStatus === 'Paused' ? <PlayArrowIcon /> : null}
               {timeStatus === 'Playing' ? <PauseIcon /> : null}
               {timeStatus === 'Finished' ? <ReplayIcon /> : null}
-            </button>
-            <div className={styles.progressBarContainer}>
+            </Button>
                 <input
                 className={styles.progressBar}
                 type="range"
                 min={0}
                 max={100}
+                step="any"
                 value={(currentTime / duration) * 100}
                 onChange={handleProgressBarChange}
                 ref={progressBarRef}
                 />
+                <Button className={styles.volumeBtn} onClick={muteVolume}>
+        
+                </Button>
                 <input
-                className={styles.progressBar}
+                className={styles.volumeBar}
                 type="range"
                 min={0}
                 max={100}
-                value={volume * 100}
+                defaultValue={50}
                 onChange={handleVolumeChange}
                 ref={volumeRef}
                 />
@@ -151,10 +167,9 @@ export default function VideoPlayer() {
                       {formatTime(currentTime)} / {formatTime(duration)}
                     </span>                    
                 </div>
-                <button className={styles.playBtn} onClick={handleFullscreen}>
-                    {fullscreen ? <FullscreenExitIcon /> : <FullscreenIcon />}
-                </button>
-            </div>
+            <Button className={styles.fullscreenBtn} onClick={handleFullscreen} sx={{marginLeft: 'auto', borderRadius: 0}}>
+              {fullscreen ? <FullscreenExitIcon /> : <FullscreenIcon />}
+            </Button>
         </div>
     </div>
   );

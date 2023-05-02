@@ -10,16 +10,16 @@
 
 .customControls {
   position: relative;
-  bottom: 5px;
+  bottom: 56px;
 
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 1);
   display: flex;
   align-items: center;
   height: 50px;
   width: 100%;
   justify-content: space-evenly;
-  opacity: 1;
-  transition: opacity 0.3s ease;
+  opacity: 0;
+  transition: opacity 0.2s ease;
 }
 
 .customControls:hover {
@@ -34,16 +34,22 @@
 .progressBar {
   display: flex;
   position: absolute;
-  bottom: 44px;
+  bottom: 40px;
   width: 100%;
 
   cursor: pointer;
 }
 
+.volumeBar {
+  cursor: pointer;
+  width: 80px;
+}
+
 
 .playBtn,
 .loopBtn,
-.fullscreenBtn
+.fullscreenBtn,
+.volumeBtn
 {
   height: 100%;
 }

@@ -36,7 +36,25 @@ export default function VideoPlayer() {
       setVideo(videoRef.current);
       setProgressBar(progressBarRef.current);
     }
-  }, []);
+
+    function handleArrowKeys(event: KeyboardEvent) {
+      if (video) {
+        if (event.key === "ArrowLeft") {
+          video.currentTime = video.currentTime - 5;
+        }
+        else if (event.key === "ArrowRight") {
+          video.currentTime = video.currentTime + 5;
+        }
+      }
+  
+    }
+
+    window.addEventListener("keydown", handleArrowKeys);
+
+    return () => {
+      window.removeEventListener("keydown", handleArrowKeys);
+    };
+  }, [video]);
  
   function handlePlayPause() {
     if (video) {

@@ -1,5 +1,5 @@
 .videoContainer {
-  position: relative;
+
   width: 80%;
   margin: 0 auto;
 }
@@ -10,13 +10,13 @@
 
 .customControls {
   position: relative;
-  bottom: 56px;
+  bottom: 55px;
 
   background-color: rgba(0, 0, 0, 1);
   display: flex;
   align-items: center;
   height: 50px;
-  width: 100%;
+
   justify-content: space-evenly;
   opacity: 0;
   transition: opacity 0.2s ease;
@@ -34,7 +34,7 @@
 .progressBar {
   display: flex;
   position: absolute;
-  bottom: 40px;
+  bottom: 43px;
   width: 100%;
 
   cursor: pointer;

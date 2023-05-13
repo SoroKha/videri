@@ -11,7 +11,7 @@ import FullscreenIcon from '@mui/icons-material/Fullscreen';
 import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
 import videoSrc from "/test.mp4";
 import styles from "./Video.module.css";
-import { Button } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 
 export default function VideoPlayer() {
   const [video, setVideo] = useState<HTMLVideoElement | null>(null);
@@ -150,7 +150,7 @@ export default function VideoPlayer() {
   }
 
   return (
-    <div id="videoPlayer">
+    <div id="videoPlayer" className={styles.videoPlayer}>
         <video
         onClick={handlePlayPause}
         className={styles.video}

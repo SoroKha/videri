@@ -1,16 +1,22 @@
 .videoContainer {
-
   width: 80%;
   margin: 0 auto;
 }
+
+.videoPlayer {
+  position: relative;
+}
   
 .video {
+  position: relative;
   width: 100%;
 }
 
 .customControls {
-  position: relative;
-  bottom: 55px;
+  position: absolute;
+  bottom: 5px;
+  width: 100%;
+  
 
   background-color: rgba(0, 0, 0, 1);
   display: flex;
